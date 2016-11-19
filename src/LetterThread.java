@@ -27,7 +27,6 @@ public class LetterThread extends Thread {
     	try {
 			sleep(refreshTime);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		}
@@ -55,7 +54,6 @@ public class LetterThread extends Thread {
 	 	try {
 			sleep(100);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -66,7 +64,6 @@ public class LetterThread extends Thread {
 	 	try {
 			sleep(100);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
