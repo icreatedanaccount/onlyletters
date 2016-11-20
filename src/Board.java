@@ -7,25 +7,19 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Random;
-
 import javax.swing.*;
 
 public class Board extends JPanel {
 
+	private static final long serialVersionUID = 1L;
 	private int NBR_OF_ROW = 25;
 	private int NBR_OF_COL = 25;
 	private JLabel[][] cellBoard;
 	private LetterThread[][] threads;
 	private ThreadGroup tgroup;
-	private boolean isON;
-	private char character;
 	private String[] aWord;
 	private static final int FONT_SIZE = 12;
-	private Random r = new Random();
-
+	
 	public Board() {
 		setBackground(Color.BLACK);
 		setLayout(new GridLayout(NBR_OF_ROW, NBR_OF_COL));
@@ -100,14 +94,12 @@ public class Board extends JPanel {
 
 	public void ShowMessage() {
 		for (int column = 4; column < 4 + aWord.length; column++) {
-			threads[12][column].stop();
+			threads[12][column].interrupt();
 			threads[12][column].setCharacterSpecial("" + aWord[column - 4]);
 		}
 
 		waitTime(0.5);
 		for (int column = 4; column < 4 + aWord.length; column++) {
-
-			LetterThread temp = threads[12][column];
 			threads[12][column] = new LetterThread(tgroup, "" + 12 + ", " + column, this, 12, column);
 			threads[12][column].start();
 			waitTime(0.1);
