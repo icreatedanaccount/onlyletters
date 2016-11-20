@@ -1,12 +1,14 @@
 
 /**
-* @author Pier-Luc Boudreau
+* @author icreatedanaccount
 */
 
 //IMPORTATIONS DES LIBRAIRIES
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
 public class Board extends JPanel {
@@ -17,13 +19,13 @@ public class Board extends JPanel {
 	private JLabel[][] cellBoard;
 	private LetterThread[][] threads;
 	private ThreadGroup tgroup;
-	private String[] aWord;
+	private ArrayList<String> aWord;
 	private static final int FONT_SIZE = 12;
 	
 	public Board() {
 		setBackground(Color.BLACK);
 		setLayout(new GridLayout(NBR_OF_ROW, NBR_OF_COL));
-		setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+		setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
 
 		cellBoard = new JLabel[NBR_OF_ROW][NBR_OF_COL];
 
@@ -31,25 +33,22 @@ public class Board extends JPanel {
 
 		tgroup = new ThreadGroup("threadgroup1");
 
-		aWord = new String[18];
-		aWord[0] = " ";
-		aWord[1] = "I";
-		aWord[2] = " ";
-		aWord[3] = "w";
-		aWord[4] = "i";
-		aWord[5] = "l";
-		aWord[6] = "l";
-		aWord[7] = " ";
-		aWord[8] = "f";
-		aWord[9] = "i";
-		aWord[10] = "n";
-		aWord[11] = "d";
-		aWord[12] = " ";
-		aWord[13] = "y";
-		aWord[14] = "o";
-		aWord[15] = "u";
-		aWord[16] = ".";
-		aWord[17] = " ";
+		aWord = new ArrayList<String>();
+		aWord.add(" ");
+		aWord.add("K");
+		aWord.add("e");
+		aWord.add("e");
+		aWord.add("p");
+		aWord.add(" ");
+		aWord.add("l");
+		aWord.add("o");
+		aWord.add("o");
+		aWord.add("k");
+		aWord.add("i");
+		aWord.add("n");
+		aWord.add("g");
+		aWord.add(".");
+		aWord.add(" ");
 
 		for (int row = 0; row < NBR_OF_ROW; row++) {
 			for (int column = 0; column < NBR_OF_COL; column++) {
@@ -93,15 +92,17 @@ public class Board extends JPanel {
 	}
 
 	public void ShowMessage() {
-		for (int column = 4; column < 4 + aWord.length; column++) {
-			threads[12][column].interrupt();
-			threads[12][column].setCharacterSpecial("" + aWord[column - 4]);
+		int displayColStart = NBR_OF_COL/2 - aWord.size()/2;
+		int displayRowStart = NBR_OF_ROW/2;
+		for (int column = displayColStart; column < displayColStart + aWord.size(); column++) {
+			threads[displayRowStart][column].stop();
+			threads[displayRowStart][column].setCharacterSpecial("" + aWord.get(column - displayColStart));
 		}
 
 		waitTime(0.5);
-		for (int column = 4; column < 4 + aWord.length; column++) {
-			threads[12][column] = new LetterThread(tgroup, "" + 12 + ", " + column, this, 12, column);
-			threads[12][column].start();
+		for (int column = displayColStart; column < displayColStart + aWord.size(); column++) {
+			threads[displayRowStart][column] = new LetterThread(tgroup, "" + displayRowStart + ", " + column, this, displayRowStart, column);
+			threads[displayRowStart][column].start();
 			waitTime(0.1);
 		}
 	}
