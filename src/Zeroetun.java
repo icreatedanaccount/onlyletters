@@ -2,14 +2,12 @@
 * @author icreatedanaccount
 */
 import java.awt.*;
-import java.util.*;
 import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class Zeroetun extends JFrame {
 
 	private static JPanel panel = new JPanel(null);
-	private static Random random = new Random();
 	private Board aBoard;
 
 	public Zeroetun() {
